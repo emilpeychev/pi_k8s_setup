@@ -1,0 +1,11 @@
+[defaults]
+inventory = /home/<user>/<Path_to_Inventory> # Example - git-prep
+remote_user = <pi_user> # Example - Ubuntu
+host_key_checking = False
+pipelining = True
+verbosity = 2 
+[privilege_escalation]
+become = True
+become_method = sudo
+become_user = root
+become_ask_pass = False

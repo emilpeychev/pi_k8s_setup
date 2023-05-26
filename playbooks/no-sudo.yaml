@@ -1,0 +1,10 @@
+---
+- name: no-sudo
+  hosts: 'pihosts' #Put file with ip or use ip hardcode
+  gather_facts: false
+  become: true
+  tasks:
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      src: ~/plays/users
+      dest: /etc/sudoers.d/users

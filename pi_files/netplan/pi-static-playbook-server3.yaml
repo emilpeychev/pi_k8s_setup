@@ -1,0 +1,17 @@
+---
+- name: Change Netplan config server3
+  hosts:  "server3.local" #Put file with ip or use ip hardcode [IP....]
+  # to find your pis ips use from terminal "sudo nmap -sn -v 192.168.0.0/24"
+  gather_facts: false
+  become: true
+  tasks:
+    - name: replace neplan settings with static 
+      ansible.builtin.copy:
+        src: ~/plays/pi_files/netplan/server3/50-cloud-init.yaml
+        dest: /etc/netplan/50-cloud-init.yaml
+        backup: yes
+    - name: change to static ip
+      shell: netplan apply
+      async: 1
+      poll: 1
+

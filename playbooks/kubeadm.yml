@@ -72,6 +72,7 @@
         - kubeadm=1.27.0-00   # Specify the desired version
         - kubectl=1.27.0-00   # Specify the desired version
         state: present
-
+        
+    #Lock to version latest v.1.27.0  
     - name:
       command: apt-mark hold kubelet kubeadm kubectl

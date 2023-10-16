@@ -51,23 +51,26 @@
       command: systemctl restart containerd
     #Kubernetes Cluster Prerequisites
     - name: Install apt-transport-https
-      command: apt install -y wget curl gnupg2 software-properties-common apt-transport-https ca-certificates
+      command: sudo apt install -y wget curl gnupg2 software-properties-common apt-transport-https ca-certificates
     #Add Repos and keyrings
     - name: Download the Google Cloud public signing key
-      command: sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      raw: |
+        sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
     - name: Add the Kubernetes apt repository
-      shell: | 
-        echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+      raw: | 
+        echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
     #Update
     - name: update the apt package index i.e. apt-get update
       apt: update_cache=yes
-    #Control Plane and lock to version latest v.1.25.5  
+
+    #Control Plane and lock to version latest v.1.27.0  
     - name: Install kubelet kubeadm kubectl version latest
       package:
         name:
-        - kubelet=1.25.5-00
-        - kubeadm=1.25.5-00
-        - kubectl=1.25.5-00
+        - kubelet
+        - kubeadm
+        - kubectl
         state: present
     - name:
       command: apt-mark hold kubelet kubeadm kubectl

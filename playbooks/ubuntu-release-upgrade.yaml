@@ -1,0 +1,17 @@
+---
+- name: Perform Ubuntu Release Upgrade
+  hosts: pihosts
+  become: yes
+  tasks:
+    - name: Set DEBIAN_FRONTEND to noninteractive
+      ansible.builtin.shell: echo 'DEBIAN_FRONTEND=noninteractive' | tee -a /etc/environment
+
+    - name: Run release upgrade interactively
+      expect:
+        command: do-release-upgrade -d
+        responses:
+          - "Press Enter to continue:"
+      environment:
+        DEBIAN_FRONTEND: noninteractive
+
+

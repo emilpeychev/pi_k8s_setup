@@ -1,6 +1,6 @@
 ---
 - name: Change Netplan config server2
-  hosts: "server2.local" #Put file with ip or use ip hardcode
+  hosts: "worker1.local" #Put file with ip or use ip hardcode
   # to find your pis ips use from terminal "sudo nmap -sn -v 192.168.0.0/24"
   gather_facts: false
   become: true

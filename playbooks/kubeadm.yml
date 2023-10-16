@@ -65,12 +65,13 @@
       apt: update_cache=yes
 
     #Control Plane and lock to version latest v.1.27.0  
-    - name: Install kubelet kubeadm kubectl version latest
+    - name: Install kubelet, kubeadm, and kubectl (specific versions)
       package:
         name:
-        - kubelet
-        - kubeadm
-        - kubectl
+        - kubelet=1.27.0-00   # Specify the desired version
+        - kubeadm=1.27.0-00   # Specify the desired version
+        - kubectl=1.27.0-00   # Specify the desired version
         state: present
+
     - name:
       command: apt-mark hold kubelet kubeadm kubectl

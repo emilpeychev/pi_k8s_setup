@@ -168,5 +168,4 @@ Happy Navigating!
 
 ### Next topic
 
-* nfs-server (Setup NFS server for persistent volume storage)
-``` https://github.com/emilpeychev/nfs-server ```
+* nfs-server [Setup NFS server for persistent volume storage](https://github.com/emilpeychev/nfs-server)

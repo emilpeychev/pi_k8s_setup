@@ -1,0 +1,75 @@
+---
+- name: Change Netplan config master
+  hosts: 
+    - master.local
+  gather_facts: true
+  become: true
+  tasks:
+    - name: replace netplan settings with static 
+      ansible.builtin.copy:
+        src: ~/plays/pi_files/netplan/server1/50-cloud-init.yaml
+        dest: /etc/netplan/50-cloud-init.yaml
+        backup: yes
+
+    - name: Apply Netplan configuration
+      ansible.netcommon.netplan.netplan_apply:
+        state: present
+
+    - name: Wait for Netplan to apply
+      ansible.netcommon.netplan.netplan_status:
+        timeout: 30  # Adjust the timeout as needed
+      register: netplan_status
+      until: netplan_status.status == 'applied'
+      retries: 12  # Adjust the number of retries as needed
+      delay: 10
+
+
+- name: Change Netplan config worker1
+  hosts:
+    - worker1.local
+  gather_facts: true
+  become: true
+  tasks:
+    - name: replace netplan settings with static 
+      ansible.builtin.copy:
+        src: ~/plays/pi_files/netplan/server2/50-cloud-init.yaml
+        dest: /etc/netplan/50-cloud-init.yaml
+        backup: yes
+
+    - name: Apply Netplan configuration
+      ansible.netcommon.netplan.netplan_apply:
+        state: present
+
+    - name: Wait for Netplan to apply
+      ansible.netcommon.netplan.netplan_status:
+        timeout: 30  # Adjust the timeout as needed
+      register: netplan_status
+      until: netplan_status.status == 'applied'
+      retries: 12  # Adjust the number of retries as needed
+      delay: 10
+
+
+- name: Change Netplan config worker2
+  hosts:
+    - worker2.local
+  gather_facts: true
+  become: true
+  tasks:
+    - name: replace netplan settings with static 
+      ansible.builtin.copy:
+        src: ~/plays/pi_files/netplan/server3/50-cloud-init.yaml
+        dest: /etc/netplan/50-cloud-init.yaml
+        backup: yes
+
+    - name: Apply Netplan configuration
+      ansible.netcommon.netplan.netplan_apply:
+        state: present
+
+    - name: Wait for Netplan to apply
+      ansible.netcommon.netplan.netplan_status:
+        timeout: 30  # Adjust the timeout as needed
+      register: netplan_status
+      until: netplan_status.status == 'applied'
+      retries: 12  # Adjust the number of retries as needed
+      delay: 10
+

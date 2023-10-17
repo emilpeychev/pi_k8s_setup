@@ -21,9 +21,9 @@ Setup a Kubernetes cluster on raspberry pi4 with Ansible playbooks.
 
 * Find your pis on the local network with ```nmap -sn -v <192.168.0.0/24>``` in the respective network.
 * You may choose to use the ubuntu user or create another user to be utilised as Ansible-user.
-* (<https://www.alibabacloud.com/blog/managing-system-users-using-ansible_593861>)
+[More](https://www.alibabacloud.com/blog/managing-system-users-using-ansible_593861)
 * In general you need a user being able to ssh to pis and a file in ```/etc/sudoers.d/file```, with content ```your-user ALL=(ALL) NOPASSWD: ALL``` for Ansible to be able to tinker inside the servers.
-* Adjust the the inventory git-prep as needed, by using the findings from nmap.
+* Adjust the the inventory git-prep as needed, by using the findings from `nmap`.
 * Adjust the file ansible_cfg and rename to ansible.cfg.
 * Test your connection to pis ssh.
 
@@ -96,7 +96,7 @@ ansible-playbook playbooks/kubeadm.yml -i git-prep
 `Before you begin`
 
 * If you are, consider using bind9 and create dns server for your k8s --control-plane-endpoint=server1.local.
-* More info (<https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/>)
+[More info](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init)
 * Add this flag with the IP or dns name if you are ever to add more than one master-node.
 Select your master node and run
 
@@ -157,7 +157,7 @@ kubectl get nodes
 
 ### Conclusion
 
-Preping the cluster-nodes takes 3 times longer then installing the cluster.
+Prepping the cluster-nodes takes 3 times longer then installing the cluster.
 Happy Navigating!
 
 ### Considerations
